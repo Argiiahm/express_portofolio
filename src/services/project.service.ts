@@ -15,7 +15,7 @@ export const getProjects = async () => {
 export const getProjectBySlug = async (slug: string) => {
     const project = await prisma.project.findUnique({
         where: {
-            slug: slug,
+            slug,
         },
     });
 

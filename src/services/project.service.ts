@@ -1,13 +1,6 @@
 import prisma from '../config/prisma.js';
 import { generateSlug } from '../utils/slug.js';
-
-type ProjectType = {
-    name: string;
-    imageUrl?: string;
-    url?: string;
-    description: string[];
-    techStack: string[];
-};
+import type { ProjectInput } from '../validations/project.schema.js';
 
 // get all project
 export const getProjects = async () => {
@@ -34,7 +27,7 @@ export const getProjectBySlug = async (slug: string) => {
 };
 
 // create Project
-export const createProject = async (data: ProjectType) => {
+export const createProject = async (data: ProjectInput) => {
     // slug
     const slug = generateSlug(data.name);
     // create
@@ -42,12 +35,14 @@ export const createProject = async (data: ProjectType) => {
         data: {
             ...data,
             slug,
+            imageUrl: data.imageUrl ?? null,
+            url: data.url ?? null,
         },
     });
 };
 
 // update project
-export const updateProject = async (id: string, data: ProjectType) => {
+export const updateProject = async (id: string, data: ProjectInput) => {
     const project = await prisma.project.findUnique({
         where: {
             id: id,
@@ -72,6 +67,8 @@ export const updateProject = async (id: string, data: ProjectType) => {
         data: {
             ...data,
             slug,
+            imageUrl: data.imageUrl ?? null,
+            url: data.url ?? null,
         },
     });
 };

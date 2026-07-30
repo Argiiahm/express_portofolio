@@ -1,22 +1,22 @@
 import jwt from 'jsonwebtoken';
 
-interface createAccessTokenPayload {
+export interface AccessTokenPayload {
     id: string;
     email: string;
 }
 
-interface createRefreshTokenPayload {
+interface RefreshTokenPayload {
     id: string;
 }
 
 // create AccessToken
-export function createAccessToken(payload: createAccessTokenPayload) {
+export function createAccessToken(payload: AccessTokenPayload) {
     return jwt.sign(payload, process.env.ACCESS_KEY!, {
         expiresIn: '15m',
     });
 }
 // create refreshToken
-export function createRefreshToken(payload: createRefreshTokenPayload) {
+export function createRefreshToken(payload: RefreshTokenPayload) {
     return jwt.sign(payload, process.env.REFRESH_KEY!, {
         expiresIn: '7d',
     });

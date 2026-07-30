@@ -41,3 +41,14 @@ model Project {
   created_at DateTime @default(now())
   update_at  DateTime @updatedAt
 }
+
+model Articles {
+  id   String @id @default(uuid())
+  slug String @unique
+
+  title   String
+  content String
+
+  created_at DateTime @default(now())
+  update_at  DateTime @updatedAt
+}
